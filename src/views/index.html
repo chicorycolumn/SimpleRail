@@ -58,7 +58,7 @@
         });
       }, 500);
 
-      function lemon() {
+      function getTrains() {
         let origin = document.getElementById("inputFrom").value.toUpperCase();
         let destin = document.getElementById("inputTo").value.toUpperCase();
 
@@ -78,7 +78,7 @@
         ).value;
 
         let day = getDate();
-        if (dayName === "Tomorrow") {
+        if (dayName === "tomorrow") {
           day = getDate(1);
         }
 
@@ -105,7 +105,9 @@
       }
     </script>
     <div class="center mainDiv">
-      <h1 style="font-size: 40px; margin-bottom: 0px">SimpleRail</h1>
+      <h1 style="font-size: 40px; margin-bottom: 0px; color: #777777">
+        SimpleRail
+      </h1>
 
       <div
         style="
@@ -136,7 +138,7 @@
 
       <div
         style="
-          margin-top: 20px;
+          margin-top: 10px;
           display: flex;
           flex-direction: row;
           justify-content: space-between;
@@ -158,7 +160,7 @@
 
       <div
         style="
-          margin-top: 20px;
+          margin-top: 15px;
           width: 50%;
           display: flex;
           flex-direction: row;
@@ -169,23 +171,30 @@
           id="inputHour"
           style="font-size: 25px"
           placeholder="Hour"
-          size="3"
+          size="2"
           maxlength="2"
         />
+        <span>:</span>
         <input
           id="inputMinute"
           style="font-size: 25px; margin-left: 2px"
           placeholder="Minute"
-          size="3"
+          size="2"
           maxlength="2"
         />
       </div>
       <button
         id="submitButton"
-        style="height: 120px; width: 80vw; font-size: 25px; margin-top: 20px"
-        onclick="lemon()"
+        style="
+          height: 120px;
+          width: 80vw;
+          font-size: 50px;
+          margin-top: 30px;
+          color: #777777;
+        "
+        onclick="getTrains()"
       >
-        Go
+        GO
       </button>
     </div>
   </body>
