@@ -1,16 +1,164 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
   <head>
-    <title>Static Website Template</title>
+    <title>SimpleRail</title>
     <module href="/components/head.html"></module>
   </head>
 
   <body>
-    <div class="center full-sized">
-      <h1>Static Website Template</h1>
-      <img src="images/logo.png" />
-    </div>
-
     <script src="bundle.js" defer async></script>
+    <script>
+      function getDate(dayIncrement = 0) {
+        var mm = today.getMonth() + 1;
+        var dd = today.getDate() + dayIncrement;
+
+        return [
+          (dd > 9 ? "" : "0") + dd,
+          (mm > 9 ? "" : "0") + mm,
+          today.getFullYear().toString().slice(2, 4),
+        ].join("");
+      }
+
+      function getTime() {
+        let hour = today.getHours();
+        let minute = today.getMinutes();
+
+        while (minute % 15) {
+          minute += 1;
+        }
+        minute = minute.toString();
+
+        if (minute == 60) {
+          hour++;
+          minute = 0;
+        }
+
+        hour = hour.toString();
+        minute = minute.toString();
+
+        if (minute.length == 1) {
+          minute = "0" + minute;
+        }
+
+        return { hour, minute };
+      }
+
+      let today = new Date();
+
+      setTimeout(() => {
+        let { hour, minute } = getTime();
+        document.getElementById("inputHour").setAttribute("value", hour);
+        document.getElementById("inputMinute").setAttribute("value", minute);
+      }, 500);
+
+      function lemon() {
+        let origin = document.getElementById("inputFrom").value.toUpperCase();
+        let destin = document.getElementById("inputTo").value.toUpperCase();
+
+        function isFormIncomplete() {
+          if (
+            !origin ||
+            origin.length !== 3 ||
+            !destin ||
+            destin.length !== 3
+          ) {
+            return true;
+          }
+        }
+
+        let dayName = document.querySelector(
+          'input[name="InputDay"]:checked'
+        ).value;
+
+        let day = getDate();
+        if (dayName === "Tomorrow") {
+          day = getDate(1);
+        }
+
+        let hour = document.getElementById("inputHour").value;
+        let minute = document.getElementById("inputMinute").value;
+
+        if (isFormIncomplete()) {
+          return;
+        }
+
+        window.open(
+          `https://www.nationalrail.co.uk/journey-planner/?` +
+            `type=single&` +
+            `origin=${origin}&` +
+            `destination=${destin}&` +
+            `leavingType=departing&` +
+            `leavingDate=${day}&` +
+            `leavingHour=${hour}&` +
+            `leavingMin=${minute}&` +
+            `adults=1&` +
+            `extraTime=0#O`,
+          "_blank"
+        );
+      }
+    </script>
+    <div class="center full-sized">
+      <h1 style="font-size: 40px; margin-bottom: 30px">SimpleRail</h1>
+
+      <input
+        style="font-size: 20px"
+        id="inputFrom"
+        placeholder="From"
+        size="6"
+        maxlength="3"
+        style="text-transform: uppercase"
+      />
+      <input
+        style="font-size: 20px"
+        id="inputTo"
+        placeholder="To"
+        size="6"
+        maxlength="3"
+        style="text-transform: uppercase"
+      />
+
+      <div
+        style="
+          margin-top: 15px;
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+        "
+      >
+        <input type="radio" id="today" name="InputDay" value="today" checked />
+        <label
+          style="font-size: 20px; padding-top: 3px; padding-right: 15px"
+          for="today"
+          >Today</label
+        ><br />
+        <input type="radio" id="tomorrow" name="InputDay" value="tomorrow" />
+        <label
+          style="font-size: 20px; padding-top: 3px; padding-right: 0px"
+          for="tomorrow"
+          >Tomorrow</label
+        ><br />
+      </div>
+
+      <input
+        id="inputHour"
+        style="font-size: 20px; margin-top: 15px"
+        placeholder="Hour"
+        size="6"
+        maxlength="2"
+      />
+      <input
+        id="inputMinute"
+        style="font-size: 20px"
+        placeholder="Minute"
+        size="6"
+        maxlength="2"
+      />
+      <button
+        style="height: 40px; width: 60px; font-size: 20px; margin-top: 15px"
+        onclick="lemon()"
+      >
+        Go
+      </button>
+    </div>
   </body>
 </html>

@@ -1,10 +1,11 @@
-# Static Website Template
+# SimpleRail
 
 This is a template for creating simple static websites without JS frameworks.
 
 A blog post explaining the process can be found on [wweb.dev](https://wweb.dev/blog/how-to-create-static-website-npm-scripts)
 
 It uses:
+
 - SCSS with linting and autoprefixer
 - JavaScript with webpack using babel and linting
 - minifying images
@@ -21,16 +22,19 @@ The compiled files will go to the directory "/dist"
 ## Getting Started
 
 1. Install dependencies
+
 ```
 npm install
 ```
 
 2. Build resources
+
 ```
 npm run build
 ```
 
 3. Watch for changes
+
 ```
 npm run watch
 ```
@@ -39,13 +43,12 @@ npm run watch
 
 Integrates smoothly with netlify:
 
-[https://static-website-template.netlify.com/](https://static-website-template.netlify.com/)
-
+[https://SimpleRail.netlify.com/](https://SimpleRail.netlify.com/)
 
 ## License
-[MIT](https://choosealicense.com/licenses/mit/)
 
+[MIT](https://choosealicense.com/licenses/mit/)
 
 ---
 
-*created by [Vincent Will](https://wweb.dev/)*
+_created by [Vincent Will](https://wweb.dev/)_
