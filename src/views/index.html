@@ -8,6 +8,19 @@
   <body>
     <script src="bundle.js" defer async></script>
     <script>
+      function isFormIncomplete(origin, destin, hour, minute) {
+        if (!origin || origin.length !== 3 || !destin || destin.length !== 3) {
+          window.alert("Must set Origin and Destination");
+          return true;
+        }
+
+        if (Number(hour) > 23 || Number(minute) > 59) {
+          console.log(hour, minute);
+          window.alert("Time incorrect");
+          return true;
+        }
+      }
+
       function getDate(dayIncrement = 0) {
         var mm = today.getMonth() + 1;
         var dd = today.getDate() + dayIncrement;
@@ -19,10 +32,11 @@
         ].join("");
       }
 
-      function getTime() {
-        let hour = today.getHours();
-        let minute = today.getMinutes();
-
+      function getTime(
+        today,
+        hour = today.getHours(),
+        minute = today.getMinutes()
+      ) {
         while (minute % 15) {
           minute += 1;
         }
@@ -46,7 +60,7 @@
       let today = new Date();
 
       setTimeout(() => {
-        let { hour, minute } = getTime();
+        let { hour, minute } = getTime(today);
         document.getElementById("inputHour").setAttribute("value", hour);
         document.getElementById("inputMinute").setAttribute("value", minute);
 
@@ -62,17 +76,6 @@
         let origin = document.getElementById("inputFrom").value.toUpperCase();
         let destin = document.getElementById("inputTo").value.toUpperCase();
 
-        function isFormIncomplete() {
-          if (
-            !origin ||
-            origin.length !== 3 ||
-            !destin ||
-            destin.length !== 3
-          ) {
-            return true;
-          }
-        }
-
         let dayName = document.querySelector(
           'input[name="InputDay"]:checked'
         ).value;
@@ -82,10 +85,13 @@
           day = getDate(1);
         }
 
-        let hour = document.getElementById("inputHour").value;
-        let minute = document.getElementById("inputMinute").value;
+        let { hour, minute } = getTime(
+          today,
+          Number(document.getElementById("inputHour").value),
+          Number(document.getElementById("inputMinute").value)
+        );
 
-        if (isFormIncomplete()) {
+        if (isFormIncomplete(origin, destin, hour, minute)) {
           return;
         }
 
@@ -104,98 +110,124 @@
         );
       }
     </script>
-    <div class="center mainDiv">
-      <h1 style="font-size: 40px; margin-bottom: 0px; color: #777777">
-        SimpleRail
-      </h1>
+    <div class="center mainContainer">
+      <div class="center mainDiv">
+        <h1 style="font-size: 40px; margin-bottom: 0px; color: #777777">
+          SimpleRail
+        </h1>
 
-      <div
-        style="
-          margin-top: 30px;
-          width: 80%;
-          display: flex;
-          flex-direction: row;
-          justify-content: space-evenly;
-        "
-      >
-        <input
-          style="font-size: 25px"
-          id="inputFrom"
-          placeholder="From"
-          size="6"
-          maxlength="3"
-          style="text-transform: uppercase"
-        />
-        <input
-          style="font-size: 25px; margin-left: 2px"
-          id="inputTo"
-          placeholder="To"
-          size="6"
-          maxlength="3"
-          style="text-transform: uppercase"
-        />
-      </div>
+        <div
+          style="
+            margin-top: 30px;
+            width: 80%;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+          "
+        >
+          <input
+            style="
+              font-size: 25px;
+              height: 48px;
+              text-transform: uppercase;
+              padding-left: 5px;
+            "
+            id="inputFrom"
+            placeholder="From"
+            size="5"
+            maxlength="3"
+          />
+          <input
+            style="
+              font-size: 25px;
+              margin-left: 2px;
+              text-transform: uppercase;
+              padding-left: 5px;
+            "
+            id="inputTo"
+            placeholder="To"
+            size="5"
+            maxlength="3"
+          />
+        </div>
 
-      <div
-        style="
-          margin-top: 10px;
-          display: flex;
-          flex-direction: row;
-          justify-content: space-between;
-        "
-      >
-        <input type="radio" id="today" name="InputDay" value="today" checked />
-        <label
-          style="font-size: 25px; padding-top: 3px; padding-right: 20px"
-          for="today"
-          >Today</label
-        ><br />
-        <input type="radio" id="tomorrow" name="InputDay" value="tomorrow" />
-        <label
-          style="font-size: 25px; padding-top: 3px; padding-right: 0px"
-          for="tomorrow"
-          >Tomorrow</label
-        ><br />
-      </div>
+        <div
+          style="
+            margin-top: 10px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+          "
+        >
+          <input
+            type="radio"
+            id="today"
+            name="InputDay"
+            value="today"
+            checked
+          />
+          <label
+            style="font-size: 25px; padding-top: 3px; padding-right: 20px"
+            for="today"
+            >Today</label
+          ><br />
+          <input type="radio" id="tomorrow" name="InputDay" value="tomorrow" />
+          <label
+            style="font-size: 25px; padding-top: 3px; padding-right: 0px"
+            for="tomorrow"
+            >Tomorrow</label
+          ><br />
+        </div>
 
-      <div
-        style="
-          margin-top: 15px;
-          width: 50%;
-          display: flex;
-          flex-direction: row;
-          justify-content: space-evenly;
-        "
-      >
-        <input
-          id="inputHour"
-          style="font-size: 25px"
-          placeholder="Hour"
-          size="2"
-          maxlength="2"
-        />
-        <span>:</span>
-        <input
-          id="inputMinute"
-          style="font-size: 25px; margin-left: 2px"
-          placeholder="Minute"
-          size="2"
-          maxlength="2"
-        />
+        <div
+          style="
+            margin-top: 15px;
+            width: 45%;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+          "
+        >
+          <input
+            onclick="document.getElementById('inputHour').setAttribute('value', '');"
+            id="inputHour"
+            type="tel"
+            style="font-size: 25px; width: 65px; padding-left: 5px"
+            placeholder="Hour"
+            size="2"
+            maxlength="2"
+          />
+          <span>:</span>
+          <input
+            onclick="document.getElementById('inputMinute').setAttribute('value', '');"
+            id="inputMinute"
+            type="tel"
+            style="
+              font-size: 25px;
+              margin-left: 2px;
+              width: 65px;
+              padding-left: 5px;
+            "
+            placeholder="Minute"
+            size="2"
+            maxlength="2"
+          />
+        </div>
+        <button
+          id="submitButton"
+          style="
+            height: 120px;
+            width: 80vw;
+            max-width: 415px;
+            font-size: 50px;
+            margin-top: 30px;
+            color: #777777;
+          "
+          onclick="getTrains()"
+        >
+          GO
+        </button>
       </div>
-      <button
-        id="submitButton"
-        style="
-          height: 120px;
-          width: 80vw;
-          font-size: 50px;
-          margin-top: 30px;
-          color: #777777;
-        "
-        onclick="getTrains()"
-      >
-        GO
-      </button>
     </div>
   </body>
 </html>

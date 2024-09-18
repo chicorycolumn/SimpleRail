@@ -55,10 +55,15 @@ h2 {
   }
 }
 
+.mainContainer {
+  width: 100%;
+}
+
 .mainDiv {
   height: 100%;
   width: 100%;
   margin-top: 5vh;
+  max-width: 520px;
 
   img {
     max-width: 200px;
