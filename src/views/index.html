@@ -8,6 +8,19 @@
   <body>
     <script src="bundle.js" defer async></script>
     <script>
+      function adjustToFifteenMinuteIntervals(hour, minute) {
+        while (minute % 15) {
+          minute += 1;
+        }
+
+        if (minute == 60) {
+          hour++;
+          minute = 0;
+        }
+
+        return { hour, minute };
+      }
+
       function isFormIncomplete(origin, destin, hour, minute) {
         if (!origin || origin.length !== 3 || !destin || destin.length !== 3) {
           window.alert("Must set Origin and Destination");
@@ -35,16 +48,23 @@
       function getTime(
         today,
         hour = today.getHours(),
-        minute = today.getMinutes()
+        minute = today.getMinutes(),
+        checkCurrentTime = false
       ) {
-        while (minute % 15) {
-          minute += 1;
-        }
-        minute = minute.toString();
+        let adjusted = adjustToFifteenMinuteIntervals(hour, minute);
+        hour = adjusted.hour;
+        minute = adjusted.minute;
 
-        if (minute == 60) {
-          hour++;
-          minute = 0;
+        if (checkCurrentTime) {
+          let currentHour = today.getHours();
+          let currentMinute = today.getMinutes();
+          if (hour < currentHour) {
+            hour = currentHour;
+            minute = currentMinute;
+            let adjusted = adjustToFifteenMinuteIntervals(hour, minute);
+            hour = adjusted.hour;
+            minute = adjusted.minute;
+          }
         }
 
         hour = hour.toString();
@@ -91,7 +111,8 @@
         let { hour, minute } = getTime(
           today,
           Number(document.getElementById("inputHour").value),
-          Number(document.getElementById("inputMinute").value)
+          Number(document.getElementById("inputMinute").value),
+          dayName === "today"
         );
 
         if (isFormIncomplete(origin, destin, hour, minute)) {
