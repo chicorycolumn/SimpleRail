@@ -105,24 +105,34 @@
       }
     </script>
     <div class="center mainDiv">
-      <h1 style="font-size: 40px; margin-bottom: 30px">SimpleRail</h1>
+      <h1 style="font-size: 40px; margin-bottom: 0px">SimpleRail</h1>
 
-      <input
-        style="font-size: 25px"
-        id="inputFrom"
-        placeholder="From"
-        size="6"
-        maxlength="3"
-        style="text-transform: uppercase"
-      />
-      <input
-        style="font-size: 25px; margin-top: 5px"
-        id="inputTo"
-        placeholder="To"
-        size="6"
-        maxlength="3"
-        style="text-transform: uppercase"
-      />
+      <div
+        style="
+          margin-top: 30px;
+          width: 80%;
+          display: flex;
+          flex-direction: row;
+          justify-content: space-evenly;
+        "
+      >
+        <input
+          style="font-size: 25px"
+          id="inputFrom"
+          placeholder="From"
+          size="6"
+          maxlength="3"
+          style="text-transform: uppercase"
+        />
+        <input
+          style="font-size: 25px; margin-left: 2px"
+          id="inputTo"
+          placeholder="To"
+          size="6"
+          maxlength="3"
+          style="text-transform: uppercase"
+        />
+      </div>
 
       <div
         style="
@@ -146,20 +156,30 @@
         ><br />
       </div>
 
-      <input
-        id="inputHour"
-        style="font-size: 25px; margin-top: 15px"
-        placeholder="Hour"
-        size="6"
-        maxlength="2"
-      />
-      <input
-        id="inputMinute"
-        style="font-size: 25px; margin-top: 5px"
-        placeholder="Minute"
-        size="6"
-        maxlength="2"
-      />
+      <div
+        style="
+          margin-top: 20px;
+          width: 50%;
+          display: flex;
+          flex-direction: row;
+          justify-content: space-evenly;
+        "
+      >
+        <input
+          id="inputHour"
+          style="font-size: 25px"
+          placeholder="Hour"
+          size="3"
+          maxlength="2"
+        />
+        <input
+          id="inputMinute"
+          style="font-size: 25px; margin-left: 2px"
+          placeholder="Minute"
+          size="3"
+          maxlength="2"
+        />
+      </div>
       <button
         id="submitButton"
         style="height: 120px; width: 80vw; font-size: 25px; margin-top: 20px"
