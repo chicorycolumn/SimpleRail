@@ -39,16 +39,11 @@ npm run build
 npm run watch
 ```
 
-## Demo
-
-Integrates smoothly with netlify:
-
-[https://SimpleRail.netlify.com/](https://SimpleRail.netlify.com/)
-
 ## License
 
 [MIT](https://choosealicense.com/licenses/mit/)
 
 ---
 
-_created by [Vincent Will](https://wweb.dev/)_
+_forked from [Vincent Will](https://wweb.dev/)_
+_logo and favicon by freepik [freepik](https://www.freepik.com/)_

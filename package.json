@@ -1,12 +1,12 @@
 {
-  "name": "SimpleRail",
+  "name": "simplerail",
   "version": "1.0.2",
   "description": "A template for building static website",
-  "author": "Vincent Will <vincent.will@vaitrade.de>",
+  "author": "chicorycolumn <https://github.com/chicorycolumn> forked from Vincent Will <vincent.will@vaitrade.de>",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Vincenius/SimpleRail"
+    "url": "https://github.com/chicorycolumn/SimpleRail"
   },
   "scripts": {
     "clean": "rimraf dist/*",

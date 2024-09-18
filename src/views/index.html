@@ -49,6 +49,13 @@
         let { hour, minute } = getTime();
         document.getElementById("inputHour").setAttribute("value", hour);
         document.getElementById("inputMinute").setAttribute("value", minute);
+
+        document.addEventListener("keypress", function (event) {
+          if (event.key === "Enter") {
+            event.preventDefault();
+            document.getElementById("submitButton").click();
+          }
+        });
       }, 500);
 
       function lemon() {
@@ -154,6 +161,7 @@
         maxlength="2"
       />
       <button
+        id="submitButton"
         style="height: 40px; width: 60px; font-size: 20px; margin-top: 15px"
         onclick="lemon()"
       >
