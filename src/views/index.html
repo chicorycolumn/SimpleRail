@@ -104,11 +104,11 @@
         );
       }
     </script>
-    <div class="center full-sized">
+    <div class="center mainDiv">
       <h1 style="font-size: 40px; margin-bottom: 30px">SimpleRail</h1>
 
       <input
-        style="font-size: 20px"
+        style="font-size: 25px"
         id="inputFrom"
         placeholder="From"
         size="6"
@@ -116,7 +116,7 @@
         style="text-transform: uppercase"
       />
       <input
-        style="font-size: 20px"
+        style="font-size: 25px; margin-top: 5px"
         id="inputTo"
         placeholder="To"
         size="6"
@@ -126,7 +126,7 @@
 
       <div
         style="
-          margin-top: 15px;
+          margin-top: 20px;
           display: flex;
           flex-direction: row;
           justify-content: space-between;
@@ -134,13 +134,13 @@
       >
         <input type="radio" id="today" name="InputDay" value="today" checked />
         <label
-          style="font-size: 20px; padding-top: 3px; padding-right: 15px"
+          style="font-size: 25px; padding-top: 3px; padding-right: 20px"
           for="today"
           >Today</label
         ><br />
         <input type="radio" id="tomorrow" name="InputDay" value="tomorrow" />
         <label
-          style="font-size: 20px; padding-top: 3px; padding-right: 0px"
+          style="font-size: 25px; padding-top: 3px; padding-right: 0px"
           for="tomorrow"
           >Tomorrow</label
         ><br />
@@ -148,21 +148,21 @@
 
       <input
         id="inputHour"
-        style="font-size: 20px; margin-top: 15px"
+        style="font-size: 25px; margin-top: 15px"
         placeholder="Hour"
         size="6"
         maxlength="2"
       />
       <input
         id="inputMinute"
-        style="font-size: 20px"
+        style="font-size: 25px; margin-top: 5px"
         placeholder="Minute"
         size="6"
         maxlength="2"
       />
       <button
         id="submitButton"
-        style="height: 40px; width: 60px; font-size: 20px; margin-top: 15px"
+        style="height: 120px; width: 80vw; font-size: 25px; margin-top: 20px"
         onclick="lemon()"
       >
         Go
