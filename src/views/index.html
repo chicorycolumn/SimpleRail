@@ -82,10 +82,19 @@
 
       let today = new Date();
 
-      setTimeout(() => {
+      function setTimeNow() {
         let { hour, minute } = getTime(today);
-        document.getElementById("inputHour").setAttribute("value", hour);
-        document.getElementById("inputMinute").setAttribute("value", minute);
+        document.getElementById("inputHour").value = hour;
+        document.getElementById("inputMinute").value = minute;
+      }
+
+      setTimeout(() => {
+        document.getElementById("inputTo").value =
+          localStorage.getItem("inputTo");
+        document.getElementById("inputFrom").value =
+          localStorage.getItem("inputFrom");
+
+        setTimeNow();
 
         document.addEventListener("keypress", function (event) {
           if (event.key === "Enter") {
@@ -95,9 +104,23 @@
         });
       }, 500);
 
+      function switchStations() {
+        let originElement = document.getElementById("inputFrom");
+        let destinElement = document.getElementById("inputTo");
+
+        let origin = originElement.value.toUpperCase();
+        let destin = destinElement.value.toUpperCase();
+
+        originElement.value = destin;
+        destinElement.value = origin;
+      }
+
       function getTrains() {
         let origin = document.getElementById("inputFrom").value.toUpperCase();
         let destin = document.getElementById("inputTo").value.toUpperCase();
+
+        localStorage.setItem("inputFrom", origin);
+        localStorage.setItem("inputTo", destin);
 
         let dayName = document.querySelector(
           'input[name="InputDay"]:checked'
@@ -119,6 +142,9 @@
           return;
         }
 
+        document.getElementById("mainDiv1").style.visibility = "hidden";
+        document.getElementById("mainDiv2").style.display = "block";
+
         window.open(
           `https://www.nationalrail.co.uk/journey-planner/?` +
             `type=single&` +
@@ -130,12 +156,32 @@
             `leavingMin=${minute}&` +
             `adults=1&` +
             `extraTime=0#O`,
-          "_blank"
+          "_self"
         );
       }
     </script>
     <div class="center mainContainer">
-      <div class="center mainDiv">
+      <div
+        class="center mainDiv"
+        id="mainDiv2"
+        style="display: block; font-size: 50px; display: none"
+      >
+        <h1 style="font-size: 40px; margin-bottom: 0px; color: #777777">
+          SimpleRail
+        </h1>
+        <p
+          style="
+            font-size: 40px;
+            margin-bottom: 0px;
+            color: #777777;
+            text-align: center;
+          "
+        >
+          Finding trains...
+        </p>
+      </div>
+
+      <div class="center mainDiv" id="mainDiv1" style="visibility: visible">
         <h1 style="font-size: 40px; margin-bottom: 0px; color: #777777">
           SimpleRail
         </h1>
@@ -143,13 +189,15 @@
         <div
           style="
             margin-top: 30px;
-            width: 80%;
+            width: 90%;
             display: flex;
             flex-direction: row;
             justify-content: space-evenly;
           "
         >
+          <div style="width: 32px; font-size: 25px; visibility: hidden"></div>
           <input
+            onclick="this.value=''"
             style="
               font-size: 25px;
               height: 48px;
@@ -162,6 +210,7 @@
             maxlength="3"
           />
           <input
+            onclick="this.value=''"
             style="
               font-size: 25px;
               margin-left: 2px;
@@ -173,6 +222,18 @@
             size="5"
             maxlength="3"
           />
+          <button
+            style="
+              width: 35px;
+              height: 44px;
+              margin-top: 2px;
+              font-size: 25px;
+              color: #777777;
+            "
+            onclick="switchStations()"
+          >
+            ⇄
+          </button>
         </div>
 
         <div
@@ -181,6 +242,7 @@
             display: flex;
             flex-direction: row;
             justify-content: space-between;
+            padding-left: 8%;
           "
         >
           <input
@@ -206,14 +268,24 @@
         <div
           style="
             margin-top: 15px;
-            width: 45%;
+            width: 65%;
             display: flex;
             flex-direction: row;
             justify-content: space-evenly;
           "
         >
+          <button
+            style="
+              width: 35px;
+              font-size: 10px;
+              color: #777777;
+              visibility: hidden;
+            "
+          >
+            NOW
+          </button>
           <input
-            onclick="document.getElementById('inputHour').setAttribute('value', '');"
+            onclick="this.value=''"
             id="inputHour"
             type="tel"
             style="font-size: 25px; width: 65px; padding-left: 5px"
@@ -223,7 +295,7 @@
           />
           <span>:</span>
           <input
-            onclick="document.getElementById('inputMinute').setAttribute('value', '');"
+            onclick="this.value=''"
             id="inputMinute"
             type="tel"
             style="
@@ -236,6 +308,18 @@
             size="2"
             maxlength="2"
           />
+          <button
+            style="
+              width: 35px;
+              height: 32px;
+              margin-top: 1px;
+              font-size: 10px;
+              color: #777777;
+            "
+            onclick="setTimeNow()"
+          >
+            NOW
+          </button>
         </div>
         <button
           id="submitButton"
